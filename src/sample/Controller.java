@@ -83,7 +83,6 @@ public class Controller {
 
     @FXML
     void initialize() {
-
         try {
             playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/play.png"))));
             nextButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/next2.png"))));
@@ -91,6 +90,7 @@ public class Controller {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         numberColumn.setCellValueFactory(new PropertyValueFactory<Music, Integer>("number"));
         pathColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("refactorPath"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("name"));
@@ -123,38 +123,11 @@ public class Controller {
             }
         });
 
+        musicSlider.valueProperty().addListener(musicTimeListener);
+        volumeSlider.valueProperty().addListener(volumeListener);
+
         TableView.TableViewSelectionModel<Music> selectionModel = musicsTable.getSelectionModel();
-        selectionModel.selectedItemProperty().addListener(new ChangeListener<Music>() {
-            public void changed(ObservableValue<? extends Music> val, Music oldVal, Music newVal) {
-                if (newVal != null) {
-                    Play(newVal.getPath());
-                    try {
-                        playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    indexCurTrack = newVal.number - 1;
-                }
-                }
-            });
-
-
-        musicSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                if(musicSlider.isPressed()) {
-                    mediaPlayer.seek(Duration.seconds(musicSlider.getValue()));
-                }
-            }
-        });
-
-
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                mediaPlayer.setVolume(volumeSlider.getValue() / 100);
-            }
-        });
+        selectionModel.selectedItemProperty().addListener(tablelistener);
 
         playButton.setOnAction(actionEvent -> {
             if(mediaPlayer != null){
@@ -267,5 +240,35 @@ public class Controller {
         musicsTable.setRowFactory(new StyleRowFactory<Music>());
         musicsTable.refresh();
     }
+
+    ChangeListener<Music> tablelistener = new ChangeListener<Music>() {
+        public void changed(ObservableValue<? extends Music> val, Music oldVal, Music newVal) {
+            if (newVal != null) {
+                Play(newVal.getPath());
+                try {
+                    playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                indexCurTrack = newVal.number - 1;
+            }
+        }
+    };
+
+    InvalidationListener musicTimeListener = new InvalidationListener() {
+        @Override
+        public void invalidated(Observable observable) {
+            if (musicSlider.isPressed()) {
+                mediaPlayer.seek(Duration.seconds(musicSlider.getValue()));
+            }
+        }
+    };
+
+    InvalidationListener volumeListener =  new InvalidationListener() {
+        @Override
+        public void invalidated(Observable observable) {
+            mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+        }
+    };
 }
 
