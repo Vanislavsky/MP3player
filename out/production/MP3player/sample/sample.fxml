@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,43 +16,45 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="646.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="20.0" prefWidth="646.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem fx:id="select" mnemonicParsing="false" text="select" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="exitItem" mnemonicParsing="false" text="exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="deleteItem" mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="aboutItem" mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
    </top>
    <center>
-      <TableView fx:id="musicsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <columns>
-            <TableColumn fx:id="numberColumn" prefWidth="75.0" text="№" />
-            <TableColumn fx:id="nameColumn" prefWidth="209.0" text="name" />
-            <TableColumn fx:id="pathColumn" prefWidth="361.0" text="path" />
-         </columns>
-      </TableView>
+       <TableView fx:id="musicsTable" prefHeight="277.0" prefWidth="647.0" BorderPane.alignment="CENTER">
+           <columns>
+               <TableColumn fx:id="numberColumn" maxWidth="1.7976931348623157E308" prefWidth="62.0" text="№" />
+               <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="234.0" text="name" />
+               <TableColumn fx:id="pathColumn" maxWidth="1000.0" prefWidth="349.0" text="path" />
+           </columns>
+       </TableView>
    </center>
    <bottom>
       <VBox prefHeight="115.0" prefWidth="646.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="58.0" prefWidth="646.0">
+            <HBox prefHeight="58.0" prefWidth="646.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="curTimeLabel" prefHeight="40.0" prefWidth="39.0" />
-                  <JFXSlider fx:id="musicSlider" prefHeight="43.0" prefWidth="531.0" />
-                  <Label fx:id="reverseCurTimeLabel" prefHeight="40.0" prefWidth="45.0">
+                  <Label fx:id="curTimeLabel" prefHeight="40.0" prefWidth="39.0" HBox.hgrow="ALWAYS" />
+                  <JFXSlider fx:id="musicSlider" prefHeight="43.0" prefWidth="531.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="reverseCurTimeLabel" prefHeight="40.0" prefWidth="45.0" HBox.hgrow="ALWAYS">
                      <padding>
                         <Insets left="5.0" />
                      </padding>

@@ -59,6 +59,15 @@ public class Controller {
     private MenuItem select;
 
     @FXML
+    private MenuItem exitItem;
+
+    @FXML
+    private MenuItem deleteItem;
+
+    @FXML
+    private MenuItem aboutItem;
+
+    @FXML
     private TableColumn<Music, Integer> numberColumn;
 
     @FXML
@@ -83,9 +92,28 @@ public class Controller {
             e.printStackTrace();
         }
         numberColumn.setCellValueFactory(new PropertyValueFactory<Music, Integer>("number"));
-        pathColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("path"));
+        pathColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("refactorPath"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("name"));
         fileChooser = new FileChooser();
+
+        exitItem.setOnAction(actionEvent -> {
+            System.exit(0);
+        });
+
+        deleteItem.setOnAction(actionEvent -> {
+            musicsTable.getItems().clear();
+            mediaPlayer = null;
+            indexCurTrack = -1;
+        });
+
+        aboutItem.setOnAction(actionEvent -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("about app");
+            alert.setHeaderText("This is simple mp3player. Select file -> select to select a song." +
+                    " To play, just click on the song of your choice.");
+            alert.show();
+        });
+
         select.setOnAction(actionEvent -> {
             List<File> files = fileChooser.showOpenMultipleDialog(select.getParentPopup().getScene().getWindow());
             for(var file: files) {
