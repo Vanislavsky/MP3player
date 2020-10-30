@@ -1,9 +1,12 @@
 package sample;
 
 import com.jfoenix.controls.*;
+
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -84,9 +87,11 @@ public class Controller {
         nameColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("name"));
         fileChooser = new FileChooser();
         select.setOnAction(actionEvent -> {
-            var file =fileChooser.showOpenDialog(select.getParentPopup().getScene().getWindow());
-            if(file != null) {
-                musicsTable.getItems().addAll(new Music(musicsTable.getItems().size() + 1,file.getName(),file.toURI().toString()));
+            List<File> files = fileChooser.showOpenMultipleDialog(select.getParentPopup().getScene().getWindow());
+            for(var file: files) {
+                if(file != null) {
+                    musicsTable.getItems().addAll(new Music(musicsTable.getItems().size() + 1, file.getName(),file.toURI().toString()));
+                }
             }
         });
 
