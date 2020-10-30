@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -37,7 +38,7 @@
    <center>
       <TableView fx:id="musicsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <columns>
-            <TableColumn fx:id="numberColumn" prefWidth="75.0" text="n" />
+            <TableColumn fx:id="numberColumn" prefWidth="75.0" text="№" />
             <TableColumn fx:id="nameColumn" prefWidth="209.0" text="name" />
             <TableColumn fx:id="pathColumn" prefWidth="361.0" text="path" />
          </columns>
@@ -48,9 +49,17 @@
          <children>
             <HBox prefHeight="58.0" prefWidth="646.0">
                <children>
-                  <JFXSlider fx:id="musicSlider" prefHeight="43.0" prefWidth="596.0" />
-                  <Label fx:id="curTimeLabel" prefHeight="40.0" prefWidth="45.0" />
+                  <Label fx:id="curTimeLabel" prefHeight="40.0" prefWidth="39.0" />
+                  <JFXSlider fx:id="musicSlider" prefHeight="43.0" prefWidth="531.0" />
+                  <Label fx:id="reverseCurTimeLabel" prefHeight="40.0" prefWidth="45.0">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
                </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </HBox>
             <HBox alignment="CENTER" prefHeight="81.0" prefWidth="646.0">
                <children>

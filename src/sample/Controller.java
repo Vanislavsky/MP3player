@@ -41,6 +41,9 @@ public class Controller {
     private Label curTimeLabel;
 
     @FXML
+    private Label reverseCurTimeLabel;
+
+    @FXML
     private JFXSlider musicSlider;
 
     @FXML
@@ -64,9 +67,11 @@ public class Controller {
     MediaPlayer mediaPlayer = null;
     int indexCurTrack = -1;
     String curTime = new String();
+    String reverseCurTime = new String();
 
     @FXML
     void initialize() {
+
         try {
             playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/play.png"))));
             nextButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/next2.png"))));
@@ -178,6 +183,17 @@ public class Controller {
         curTimeLabel.setText(curTime);
     }
 
+    void SetReverseTime() {
+        var sec = ((int)mediaPlayer.getMedia().getDuration().toSeconds()) % 60 - ((int)mediaPlayer.getCurrentTime().toSeconds()) % 60;
+        var min = (int) mediaPlayer.getMedia().getDuration().toMinutes() - (int) mediaPlayer.getCurrentTime().toMinutes();
+        if(sec < 10) {
+            reverseCurTime = "-" + String.valueOf(min) + ":0" + String.valueOf(sec);
+        } else {
+            reverseCurTime = "-" + String.valueOf(min) + ":" + String.valueOf(sec);
+        }
+        reverseCurTimeLabel.setText(reverseCurTime);
+    }
+
     class StyleRowFactory<T> implements Callback<TableView<T>, TableRow<T>> {
         @Override
         public TableRow<T> call(TableView<T> tableView) {
@@ -212,6 +228,7 @@ public class Controller {
             public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
                 musicSlider.setValue(mediaPlayer.getCurrentTime().toSeconds());
                 SetTime();
+                SetReverseTime();
             }
         });
         musicsTable.setRowFactory(new StyleRowFactory<Music>());
