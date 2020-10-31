@@ -228,6 +228,15 @@ public class Controller {
 
     }
 
+    ChangeListener<Duration> curTimeListener = new ChangeListener<Duration>() {
+        @Override
+        public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
+            musicSlider.setValue(mediaPlayer.getCurrentTime().toSeconds());
+            SetTime();
+            SetReverseTime();
+        }
+    };
+
     void Play(String path) {
         if (mediaPlayer != null)
             mediaPlayer.stop();
@@ -238,14 +247,7 @@ public class Controller {
             musicSlider.setMax(mediaPlayer.getMedia().getDuration().toSeconds());
             musicSlider.setValue(0);
         });
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
-                musicSlider.setValue(mediaPlayer.getCurrentTime().toSeconds());
-                SetTime();
-                SetReverseTime();
-            }
-        });
+        mediaPlayer.currentTimeProperty().addListener(curTimeListener);
         musicsTable.setRowFactory(new StyleRowFactory<Music>());
         musicsTable.refresh();
     }
