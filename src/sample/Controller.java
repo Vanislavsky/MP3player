@@ -17,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -92,8 +93,16 @@ public class Controller {
         }
 
         numberColumn.setCellValueFactory(new PropertyValueFactory<Music, Integer>("number"));
-        pathColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("refactorPath"));
+        numberColumn.setStyle("-fx-alignment: CENTER;");
         nameColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("name"));
+        pathColumn.setCellValueFactory(new PropertyValueFactory<Music, String>("refactorPath"));
+        pathColumn.prefWidthProperty().bind(
+                musicsTable.widthProperty()
+                .subtract(numberColumn.widthProperty())
+                .subtract(nameColumn.widthProperty())
+                .subtract(2)
+        );
+
         fileChooser = new FileChooser();
 
         exitItem.setOnAction(actionEvent -> {

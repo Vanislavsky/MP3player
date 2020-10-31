@@ -41,9 +41,9 @@
    <center>
        <TableView fx:id="musicsTable" prefHeight="277.0" prefWidth="647.0" BorderPane.alignment="CENTER">
            <columns>
-               <TableColumn fx:id="numberColumn" maxWidth="1.7976931348623157E308" prefWidth="62.0" text="№" />
-               <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="234.0" text="name" />
-               <TableColumn fx:id="pathColumn" maxWidth="1000.0" prefWidth="349.0" text="path" />
+               <TableColumn fx:id="numberColumn" prefWidth="35.0" text="№" />
+               <TableColumn fx:id="nameColumn" prefWidth="296.0" text="name" />
+               <TableColumn fx:id="pathColumn" prefWidth="308.0" text="path" />
            </columns>
        </TableView>
    </center>
