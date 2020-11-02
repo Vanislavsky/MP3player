@@ -143,18 +143,10 @@ public class Controller {
                 var status = mediaPlayer.getStatus();
                 if(status == MediaPlayer.Status.PAUSED) {
                     mediaPlayer.play();
-                    try {
-                        playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    setPauseImage();
                 } else {
                     mediaPlayer.pause();
-                    try {
-                        playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/play.png"))));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    setPlayImage();
                 }
             }
         });
@@ -166,11 +158,7 @@ public class Controller {
             if(indexCurTrack == musicsTable.getItems().size())
                 indexCurTrack = 0;
             Play(musicsTable.getItems().get(indexCurTrack).getPath());
-            try {
-                playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            setPauseImage();
         });
 
         prevButton.setOnAction(actionEvent -> {
@@ -180,12 +168,24 @@ public class Controller {
             if(indexCurTrack < 0)
                 indexCurTrack  = musicsTable.getItems().size() - 1;
             Play(musicsTable.getItems().get(indexCurTrack).getPath());
-            try {
-                playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            setPauseImage();
         });
+    }
+
+    void setPauseImage() {
+        try {
+            playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/pause.png"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setPlayImage() {
+        try {
+            playButton.setGraphic(new ImageView(new Image(new FileInputStream("src/icons/play.png"))));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     void SetTime() {
